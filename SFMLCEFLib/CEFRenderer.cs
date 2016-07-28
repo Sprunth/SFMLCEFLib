@@ -17,7 +17,7 @@ namespace SFMLCEFLib
 
         private bool mouseInWindowBounds = true;
         private Texture cefTexture;
-        private readonly Sprite cefSprite;
+        private Sprite cefSprite;
 
         public CEFRenderer(RenderWindow window)
         {
@@ -53,6 +53,11 @@ namespace SFMLCEFLib
             };
 
             cef = new CefEngine(new Size((int) window.Size.X, (int) window.Size.Y));
+        }
+
+        public void Run(string pageAddress)
+        {
+            cef.Run(pageAddress);
             cefTexture = new Texture(BmpToByteArray(cef.LatestRender));
             cefSprite = new Sprite(cefTexture);
         }

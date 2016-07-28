@@ -5,6 +5,7 @@ Download and open the .sln file. Build in either Debug or Release mode (Nuget wi
 ## Usage
 ```C#
 var cefRenderer = new CEFRenderer(window);
+cefRenderer.Run("http://google.com");
 while (window.IsOpen)
 {
 	window.DispatchEvents();
