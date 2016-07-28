@@ -59,9 +59,13 @@ namespace SFMLCEFLib
 
         public void Draw(RenderTarget target, RenderStates states)
         {
-            cefTexture.Dispose();
-            cefTexture = new Texture(BmpToByteArray(cef.LatestRender));
-            cefSprite.Texture = cefTexture;
+            if (cef.RenderDirty)
+            {
+                cefTexture.Dispose();
+                cefTexture = new Texture(BmpToByteArray(cef.LatestRender));
+                cefSprite.Texture = cefTexture;
+            }
+            target.Draw(cefSprite);
         }
 
         private static byte[] BmpToByteArray(Bitmap bmp)
