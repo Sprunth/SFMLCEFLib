@@ -32,7 +32,8 @@ namespace SFMLCEFLib
             }
         }
 
-        public CefEngine(Size browserSize, EventHandler<ConsoleMessageEventArgs> consoleMsgHandler = null,
+        public CefEngine(Size browserSize, string initialPageAddress,
+            EventHandler<ConsoleMessageEventArgs> consoleMsgHandler = null,
             bool disableRightClick = true)
         {
             var settings = new CefSettings();
@@ -50,6 +51,11 @@ namespace SFMLCEFLib
             browser.NewScreenshot += (sender, args) => LatestRender = browser.Bitmap;
 
             LatestRender = null;
+
+            while (!browser.IsBrowserInitialized)
+                Thread.Yield();
+
+            browser.Load(initialPageAddress);
 
             while (RenderDirty == false || LatestRender == null)
             {
@@ -71,10 +77,6 @@ namespace SFMLCEFLib
 
         public void Run(string pageAddress)
         {
-            while (!browser.IsBrowserInitialized)
-                Thread.Yield();
-
-            browser.Load(pageAddress);
         }
 
         #region emulate user actions
@@ -93,7 +95,7 @@ namespace SFMLCEFLib
 
         public void MouseWheel(int x, int y, int deltaX, int deltaY)
         {
-            browser.GetBrowser().GetHost().SendMouseWheelEvent(x, y, deltaX, deltaY, CefEventFlags.None);
+            browser.GetBrowser().GetHost().SendMouseWheelEvent(x, y, deltaX*5, deltaY*5, CefEventFlags.None);
         }
 
         public void KeyPress(bool down, int winKeyCode)

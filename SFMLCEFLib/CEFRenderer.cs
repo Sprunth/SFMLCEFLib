@@ -11,15 +11,15 @@ using SFML.Window;
 
 namespace SFMLCEFLib
 {
-    public class CEFRenderer : Drawable
+    public class CEFRenderer : Drawable, IDisposable
     {
         private readonly CefEngine cef;
 
         private bool mouseInWindowBounds = true;
         private Texture cefTexture;
-        private Sprite cefSprite;
+        private readonly Sprite cefSprite;
 
-        public CEFRenderer(RenderWindow window)
+        public CEFRenderer(RenderWindow window, string initialPageAddress)
         {
             window.Closed += (sender, eventArgs) => { window.Close(); };
 
@@ -52,12 +52,7 @@ namespace SFMLCEFLib
                 cef.ChangeWindowSize(new Size((int) args.Width, (int) args.Height));
             };
 
-            cef = new CefEngine(new Size((int) window.Size.X, (int) window.Size.Y));
-        }
-
-        public void Run(string pageAddress)
-        {
-            cef.Run(pageAddress);
+            cef = new CefEngine(new Size((int) window.Size.X, (int) window.Size.Y), initialPageAddress);
             cefTexture = new Texture(BmpToByteArray(cef.LatestRender));
             cefSprite = new Sprite(cefTexture);
         }
@@ -80,6 +75,13 @@ namespace SFMLCEFLib
                 bmp.Save(ms, ImageFormat.Bmp);
                 return ms.ToArray();
             }
+        }
+
+        public void Dispose()
+        {
+            cef.Dispose();
+            cefTexture.Dispose();
+            cefSprite.Dispose();
         }
     }
 }

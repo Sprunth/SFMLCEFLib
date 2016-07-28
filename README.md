@@ -4,8 +4,7 @@ A library to easily integrate CEFSharp into SFML.net
 Download and open the .sln file. Build in either Debug or Release mode (Nuget will fetch packages). Copy the contents from the build or release folder into your project's build folder. Add SFMLCEFLib.dll as a reference.
 ## Usage
 ```C#
-var cefRenderer = new CEFRenderer(window);
-cefRenderer.Run("http://google.com");
+var cefRenderer = new CEFRenderer(window, @"http://msn.com");
 while (window.IsOpen)
 {
 	window.DispatchEvents();
