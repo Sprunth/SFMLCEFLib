@@ -43,7 +43,9 @@ namespace SFMLCEFLib
 
             browser = new ChromiumWebBrowser() {Size = browserSize};
             if (consoleMsgHandler != null)
+            {
                 browser.ConsoleMessage += consoleMsgHandler;
+            }
 
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             if (disableRightClick)
@@ -137,6 +139,14 @@ namespace SFMLCEFLib
         }
 
         #endregion
+
+        public void ToggleDevTools(bool open)
+        {
+            if (open)
+                browser.ShowDevTools();
+            else
+                browser.CloseDevTools();
+        }
 
         public void Dispose()
         {

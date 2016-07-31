@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CefSharp;
 using SFML.Graphics;
 using SFML.Window;
 
@@ -19,7 +20,8 @@ namespace SFMLCEFLib
         private Texture cefTexture;
         private readonly Sprite cefSprite;
 
-        public CEFRenderer(RenderWindow window, string initialPageAddress)
+        public CEFRenderer(RenderWindow window, string initialPageAddress,
+            EventHandler<string> consoleMessageHandler = null, bool disableRightClick = true)
         {
             window.Closed += (sender, eventArgs) => { window.Close(); };
 
@@ -52,7 +54,13 @@ namespace SFMLCEFLib
                 cef.ChangeWindowSize(new Size((int) args.Width, (int) args.Height));
             };
 
-            cef = new CefEngine(new Size((int) window.Size.X, (int) window.Size.Y), initialPageAddress);
+            var consoleMsgHandler =
+                new EventHandler<ConsoleMessageEventArgs>(
+                    (sender, args) =>
+                        consoleMessageHandler?.Invoke(null, $"[{args.Source}:{args.Line}] {args.Message}"));
+
+            cef = new CefEngine(new Size((int) window.Size.X, (int) window.Size.Y), initialPageAddress,
+                consoleMessageHandler != null ? consoleMsgHandler : null, disableRightClick);
             cefTexture = new Texture(BmpToByteArray(cef.LatestRender));
             cefSprite = new Sprite(cefTexture);
         }
@@ -66,6 +74,11 @@ namespace SFMLCEFLib
                 cefSprite.Texture = cefTexture;
             }
             target.Draw(cefSprite);
+        }
+
+        public void ToggleDevTools(bool open)
+        {
+            cef.ToggleDevTools(open);
         }
 
         private static byte[] BmpToByteArray(Bitmap bmp)
