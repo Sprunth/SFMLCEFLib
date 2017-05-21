@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFMLCEFLib", "SFMLCEFLib\SFMLCEFLib.csproj", "{FB017810-EE41-4011-82F1-AFFED1BFA46E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFMLCEFLibSample", "SFMLCEFLibSample\SFMLCEFLibSample.csproj", "{7CEC0C77-94A2-41A3-AE69-4441DF280431}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FB017810-EE41-4011-82F1-AFFED1BFA46E}.Debug|x64.Build.0 = Debug|x64
 		{FB017810-EE41-4011-82F1-AFFED1BFA46E}.Release|x64.ActiveCfg = Release|x64
 		{FB017810-EE41-4011-82F1-AFFED1BFA46E}.Release|x64.Build.0 = Release|x64
+		{7CEC0C77-94A2-41A3-AE69-4441DF280431}.Debug|x64.ActiveCfg = Debug|x64
+		{7CEC0C77-94A2-41A3-AE69-4441DF280431}.Debug|x64.Build.0 = Debug|x64
+		{7CEC0C77-94A2-41A3-AE69-4441DF280431}.Release|x64.ActiveCfg = Debug|Any CPU
+		{7CEC0C77-94A2-41A3-AE69-4441DF280431}.Release|x64.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,6 +15,9 @@ while (window.IsOpen)
 	window.Display();
 }
 ```
+
+There is a Sample project included to show the very basics. If VS complains about "CefSharp.Core.dll", please check that you have all the [required files](https://github.com/cefsharp/CefSharp/wiki/Output-files-description-table-(Redistribution)) in the executable directory. If some are missing, go into the /packages folder, and grab the required files.
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

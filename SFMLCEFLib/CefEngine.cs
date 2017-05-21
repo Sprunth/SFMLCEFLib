@@ -39,7 +39,7 @@ namespace SFMLCEFLib
             var settings = new CefSettings();
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
 
-            Cef.Initialize(settings, true, true);
+            Cef.Initialize(settings);
 
             browser = new ChromiumWebBrowser() {Size = browserSize};
             if (consoleMsgHandler != null)
